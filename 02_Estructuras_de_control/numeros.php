@@ -126,11 +126,20 @@
     } else {
         $digitos = "ERROR";
     }
-
     $digitos_texto = "dígitos";
     if($digitos == 1) $digitos_texto = "dígito";
-
     echo "<p>El número $numero_aleatorio tiene $digitos $digitos_texto</p>";
+
+    //  VERSION CON MATCH
+    $digitos = match(true) {
+        $numero_aleatorio >= 1 && $numero_aleatorio <= 9 => 1,
+        $numero_aleatorio >= 10 && $numero_aleatorio <= 99 => 2,
+        $numero_aleatorio >= 100 && $numero_aleatorio <= 999 => 3,
+        default => "ERROR"
+    };
+
+    echo "<h1>El número tiene $digitos dígitos</h1>";
+
 
     //$numero_aleatorio_decimales = rand(10,100)/10;
 
@@ -146,6 +155,13 @@
         default:
             echo "El número es 3";
     }
+
+    $resultado = match($n) {
+        1 => "El número es 1",
+        2 => "El número es 2",
+        3 => "El número es 3"
+    };
+    echo "<h3>$resultado</h3>";
     ?>
 </body>
 </html>
