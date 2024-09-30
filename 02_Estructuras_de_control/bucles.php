@@ -30,15 +30,56 @@
     echo "</ul>";
     ?>
 
-    <!--
-        EJERCICIO 2: MOSTRAR EN UNA LISTA LOS NÚMEROS MÚLTIPLOS DE 3 USANDO
-        WHILE E IF
+    <h1>Lista con FOR</h1>
+    <?php
+    echo "<ul>";
+    for($i = 1; $i <= 10; $i++) {
+        echo "<li>$i</li>";
+    }
+    echo "</ul>";
+    ?>
 
-        EJERCICIO 3: CALCULAR LA SUMA DE LOS NÚMEROS PARES ENTRE 1 Y 20
+    <h1>Lista con FOR alternativa</h1>
+    <?php
+    echo "<ul>";
+    for($i = 1; $i <= 10; $i++):
+        echo "<li>$i</li>";
+    endfor;
+    echo "</ul>";
+    ?>
 
-        EJERCICIO 4: CALCULAR EL FACTORIAL DE 6 CON WHILE
+    <h1>Lista con FOR con BREAK cursed</h1>
+    <?php
+    /*echo "<ul>";
+    for($i = 1; ; $i++) {
+        if($i > 10) {
+            break;
+        }
+        echo "<li>$i</li>";
+    }
+    echo "</ul>";*/
 
-        HACER EN EL ARCHIVO EJERCICIOS.PHP
-    -->
+    /*echo "<ul>";
+    for($i = 1; ; ) {
+        if($i > 10) {
+            break;
+        }
+        echo "<li>$i</li>";
+        $i++;
+    }
+    echo "</ul>";*/
+
+    echo "<ul>";
+    $i = 1;
+    //  CÓDIGO OFUSCADO
+    for( ; ; ) {
+        if($i > 10) {
+            break;
+        }
+        echo "<li>$i</li>";
+        $i++;
+    }
+    echo "</ul>";
+    ?>
 </body>
 </html>
