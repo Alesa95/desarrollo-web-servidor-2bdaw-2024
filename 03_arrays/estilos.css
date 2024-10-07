@@ -14,3 +14,7 @@ caption {
 .aprobado {
     background-color: greenyellow;
 }
+
+.suspenso {
+    background-color: red;
+}
