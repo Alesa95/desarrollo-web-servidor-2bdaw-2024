@@ -21,6 +21,7 @@
     <?php
     
     if($_SERVER["REQUEST_METHOD"] == "POST") {
+        echo "<p>Entramos en la respuesta</p>";
         $base = $_POST["base"];
         $exponente = $_POST["exponente"];
         $resultado = 1;
