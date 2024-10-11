@@ -37,15 +37,5 @@
         echo "<h1>$nombre $resultado</h1>";
     }
     ?>
-
-    <!--
-        CREAR UN FORMULARIO QUE RECIBA UN NÚMERO
-        
-        SE MOSTRARÁ LA TABLA DE MULTIPLICAR DE ESE NUMERO EN UNA TABLA HTML
-
-        2 x 1 = 2
-        2 x 2 = 4
-        ...
-    -->
 </body>
 </html>
