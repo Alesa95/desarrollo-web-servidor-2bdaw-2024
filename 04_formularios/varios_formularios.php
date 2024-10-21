@@ -9,6 +9,7 @@
         ini_set("display_errors", 1 );  
         
         require('../05_funciones/temperaturas.php');
+        require('../05_funciones/edades.php');
     ?>
 </head>
 <body>
@@ -49,6 +50,8 @@
         if($_POST["accion"] == "formulario_edades") {
             $nombre = $_POST["nombre"];
             $edad = $_POST["edad"];
+
+            comprobarEdad($nombre, $edad);
         }
 
         //  Formulario de temperaturas
