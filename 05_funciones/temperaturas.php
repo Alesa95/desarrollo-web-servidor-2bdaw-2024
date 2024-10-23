@@ -24,6 +24,6 @@
     
             }
         }
-        echo "<p>$temperaturaFinal</p>";
+        return $temperaturaFinal;
     }
 ?>
