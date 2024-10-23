@@ -8,20 +8,10 @@
         error_reporting( E_ALL );
         ini_set("display_errors", 1 );    
 
-        define("GENERAL", 1.21);
-        define("REDUCIDO", 1.1);
-        define("SUPERREDUCIDO", 1.04);
+        require('../05_funciones/economia.php');
     ?>
 </head>
 <body>
-    <!--
-    GENERAL = 21%
-    REDUCIDO = 10%
-    SUPERREDUCIDO = 4%
-
-    10€ IVA = GENERAL, PVP = 12,1€ PVP = precio * 1.21
-    10€ iva = REDUCIDO, PVP = 11€  PVP = precio * 1.1
-    -->
     <form action="" method="post">
         <label for="precio">Precio</label>
         <input type="text" name="precio" id="precio">
@@ -37,20 +27,38 @@
 
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $precio = $_POST["precio"];
-        $iva = $_POST["iva"];
+        $tmp_precio = $_POST["precio"];
+        $tmp_iva = $_POST["iva"];
 
-        if($precio != '' and $iva != '') {
-            $pvp = match($iva) {
-                "general" => $precio * GENERAL,
-                "reducido" => $precio * REDUCIDO,
-                "superreducido" => $precio * SUPERREDUCIDO
-            };
-
-            echo "<p>El PVP ES $pvp</p>";
+        if($tmp_precio == '') {
+            echo "<p>El precio es obligatorio</p>";
         } else {
-            echo "<p>Te faltan datos</p>";
+            if(filter_var($tmp_precio, FILTER_VALIDATE_FLOAT) === FALSE) {
+                echo "<p>El precio debe ser un número</p>";
+            } else {
+                if($tmp_precio < 0) {
+                    echo "<p>El precio debe ser mayor o igual que cero</p>";
+                } else {
+                    $precio = $tmp_precio;
+                }
+            }
         }
+
+        if($tmp_iva == '') {
+            echo "<p>El IVA es obligatorio</p>";
+        } else {
+            $valores_validos_iva = ["general", "reducido", "superreducido"];
+            if(!in_array($tmp_iva, $valores_validos_iva)) {
+                echo "<p>El IVA solo puede ser: general, reducido, superreducido</p>";
+            } else {
+                $iva = $tmp_iva;
+            }
+        }
+
+        if(isset($precio) && isset($iva)) {
+            echo calcularPVP($precio, $iva);
+        }
+
     }
     ?>
 </body>
