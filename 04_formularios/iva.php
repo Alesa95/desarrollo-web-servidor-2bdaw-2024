@@ -10,6 +10,12 @@
 
         require('../05_funciones/economia.php');
     ?>
+    <style>
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
 <?php
@@ -47,7 +53,7 @@
     <form action="" method="post">
         <label for="precio">Precio</label>
         <input type="text" name="precio" id="precio">
-        <?php if(isset($err_precio)) echo "<span>$err_precio</span>"; ?>
+        <?php if(isset($err_precio)) echo "<span class='error'>$err_precio</span>"; ?>
         <br><br>
         <select name="iva">
             <option disabled selected hidden>--- Elige un tipo de IVA ---</option>
@@ -55,7 +61,7 @@
             <option value="reducido">Reducido</option>
             <option value="superreducido">Superreducido</option>
         </select>
-        <?php if(isset($err_iva)) echo "<span>$err_iva</span>"; ?>
+        <?php if(isset($err_iva)) echo "<span class='error'>$err_iva</span>"; ?>
         <br><br>
         <input type="submit" value="Calcular">
     </form>
