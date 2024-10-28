@@ -27,6 +27,32 @@
 
             if($tmp_usuario == '') {
                 $err_usuario = "El usuario es obligatorio";
+            } else {
+                //  letras de la A a la Z (mayus o minus), numeros y barrabaja (4-12 chars)
+                $patron = "/^[a-zA-Z0-9_]{4,12}$/";
+                if(!preg_match($patron, $tmp_usuario)) {
+                    $err_usuario = "El usuario debe contener de 4 a 12 letras, 
+                        números o barrabaja";
+                } else {
+                    $usuario = $tmp_usuario;
+                }
+            }
+
+            if($tmp_nombre == '') {
+                $err_nombre = "El nombre es obligatorio";
+            } else {
+                if(strlen($tmp_nombre) < 2 || strlen($tmp_nombre) > 40) {
+                    $err_nombre = "El nombre debe tener entre 2 y 40 caracteres";
+                } else {
+                    //  letras, espacios en blanco y tildes
+                    $patron = "/^[a-zA-Z áéióúÁÉÍÓÚñÑüÜ]$/";
+                    if(!preg_match($patron, $tmp_nombre)) {
+                        $err_nombre = "El nombre solo puede contener letras y espacios
+                            en blanco";
+                    } else {
+                        $nombre = $tmp_nombre;
+                    }
+                }
             }
         }
         ?>
@@ -42,6 +68,7 @@
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
                 <input class="form-control" type="text" name="nombre">
+                <?php if(isset($err_nombre)) echo "<span class='error'>$err_nombre</span>" ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Apellidos</label>
