@@ -25,6 +25,7 @@
             $tmp_nombre = $_POST["nombre"];
             $tmp_apellidos = $_POST["apellidos"];
             $tmp_dni = $_POST["dni"];
+            $tmp_correo = $_POST["correo"];
 
             if($tmp_dni == '') {
                 $err_dni = "El DNI es obligatorio";
@@ -39,6 +40,7 @@
 
                     $resto_dni = $numero_dni % 23;
 
+                    /*
                     $letra_correcta = match($resto_dni) {
                         0 => "T",
                         1 => "R",
@@ -64,11 +66,39 @@
                         21 => "K",
                         22 => "E"
                     };
+                    */
+
+                    $letras_dni = "TRWAGMYFPDXBNJZSQVHLCKE";
+                    $letra_correcta = substr($letras_dni,$resto_dni,1);
 
                     if($letra_dni != $letra_correcta) {
                         $err_dni = "La letra del DNI no es correcta";
                     } else {
                         $dni = $tmp_dni;
+                    }
+                }
+            }
+
+            if($tmp_correo == '') {
+                $err_correo = "El correo electrónico es obligatorio";
+            } else {
+                //  formato de correo electrónico
+                $patron = "/^[a-zA-Z0-9_\-.+]+@([a-zA-Z0-9-]+.)+[a-zA-Z]+$/";
+                if(!preg_match($patron, $tmp_correo)) {
+                    $err_correo = "El correo no es válido";
+                } else {
+                    $palabras_baneadas = ["caca","peo","recorcholis","caracoles","repampanos"];
+
+                    $palabras_encontradas = "";
+                    foreach($palabras_baneadas as $palabra_baneada) {
+                        if(str_contains($tmp_correo,$palabra_baneada)) {
+                            $palabras_encontradas = "$palabra_baneada, " . $palabras_encontradas;
+                        }
+                        if($palabras_encontradas != '') {
+                            $err_correo = "No se permiten las palabras: $palabras_encontradas";
+                        } else {
+                            $correo = $tmp_correo;
+                        }
                     }
                 }
             }
@@ -112,6 +142,11 @@
                 <label class="form-label">DNI</label>
                 <input class="form-control" type="text" name="dni">
                 <?php if(isset($err_dni)) echo "<span class='error'>$err_dni</span>" ?>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo electrónico</label>
+                <input class="form-control" type="text" name="correo">
+                <?php if(isset($err_correo)) echo "<span class='error'>$err_correo</span>" ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
