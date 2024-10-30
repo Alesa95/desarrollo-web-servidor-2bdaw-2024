@@ -26,6 +26,9 @@
             $tmp_apellidos = $_POST["apellidos"];
             $tmp_dni = $_POST["dni"];
             $tmp_correo = $_POST["correo"];
+            $tmp_fecha_nacimiento = $_POST["fecha_nacimiento"];
+
+            echo "<h1>$tmp_fecha_nacimiento</h1>";
 
             if($tmp_dni == '') {
                 $err_dni = "El DNI es obligatorio";
@@ -132,6 +135,32 @@
                     }
                 }
             }
+
+            if($tmp_fecha_nacimiento == '') {
+                $err_fecha_nacimiento = "La fecha de nacimiento es obligatoria";
+            } else {
+                $patron = "/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/";
+                if(!preg_match($patron, $tmp_fecha_nacimiento)) {
+                    $err_fecha_nacimiento = "Formato de fecha incorrecto";
+                } else {
+                    $fecha_actual = date("Y-m-d");
+                    list($anno_actual,$mes_actual,$dia_actual) = explode('-',$fecha_actual);
+                    list($anno,$mes,$dia) = explode('-',$tmp_fecha_nacimiento);
+
+                    if($anno_actual - $anno < 18) {
+                        $err_fecha_nacimiento = "No puedes ser menor de edad";
+                    } elseif($anno_actual - $anno == 0) {
+                        if($mes_actual - $mes < 0) {
+                            //  ES MENOR DE EDAD
+                        } elseif($mes_actual - $mes == 0) {
+                            //  NO SABEMOS, TENEMOS QUE MIRAR EL DÍA
+                            
+                        } elseif($mes_actual - $mes > 0) {
+                            //  ES MAYOR DE EDAD
+                        } 
+                    }
+                }
+            }
         }
         ?>
 
@@ -161,6 +190,11 @@
             <div class="mb-3">
                 <label class="form-label">Apellidos</label>
                 <input class="form-control" type="text" name="apellidos">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de nacimiento</label>
+                <input class="form-control" type="date" name="fecha_nacimiento">
+                <?php if(isset($err_fecha_nacimiento)) echo "<span class='error'>$err_fecha_nacimiento</span>" ?>
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Enviar">
