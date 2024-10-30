@@ -123,7 +123,7 @@
                     $err_nombre = "El nombre debe tener entre 2 y 40 caracteres";
                 } else {
                     //  letras, espacios en blanco y tildes
-                    $patron = "/^[a-zA-Z áéióúÁÉÍÓÚñÑüÜ]$/";
+                    $patron = "/^[a-zA-Z áéióúÁÉÍÓÚñÑüÜ]+$/";
                     if(!preg_match($patron, $tmp_nombre)) {
                         $err_nombre = "El nombre solo puede contener letras y espacios
                             en blanco";
@@ -166,6 +166,13 @@
                 <input class="btn btn-primary" type="submit" value="Enviar">
             </div>
         </form>
+        <?php
+        if(isset($dni) && isset($correo) && isset($usuario) && isset($nombre)) { ?>
+            <h1><?php echo $dni ?></h1>
+            <h1><?php echo $correo ?></h1>
+            <h1><?php echo $usuario ?></h1>
+            <h1><?php echo $nombre ?></h1>
+        <?php } ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
