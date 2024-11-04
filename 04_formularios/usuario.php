@@ -28,8 +28,6 @@
             $tmp_correo = $_POST["correo"];
             $tmp_fecha_nacimiento = $_POST["fecha_nacimiento"];
 
-            echo "<h1>$tmp_fecha_nacimiento</h1>";
-
             if($tmp_dni == '') {
                 $err_dni = "El DNI es obligatorio";
             } else {
@@ -147,7 +145,7 @@
                     list($anno_actual,$mes_actual,$dia_actual) = explode('-',$fecha_actual);
                     list($anno,$mes,$dia) = explode('-',$tmp_fecha_nacimiento);
 
-                    echo "<h2>Año: $anno, Año actual: $anno_actual</h2>";
+                    //echo "<h2>Año: $anno, Año actual: $anno_actual</h2>";
                     if($anno_actual - $anno < 18) {
                         $err_fecha_nacimiento = "No puedes ser menor de edad";
                     } elseif($anno_actual - $anno == 18) {
@@ -176,6 +174,8 @@
                         } elseif($mes_actual - $mes < 0) {
                             $fecha_nacimiento = $tmp_fecha_nacimiento;
                         } 
+                    } else {
+                        $fecha_nacimiento = $tmp_fecha_nacimiento;
                     }
                 }
             }
@@ -219,11 +219,13 @@
             </div>
         </form>
         <?php
-        if(isset($dni) && isset($correo) && isset($usuario) && isset($nombre)) { ?>
+        if(isset($dni) && isset($correo) && isset($usuario) && isset($nombre)
+                && isset($fecha_nacimiento)) { ?>
             <h1><?php echo $dni ?></h1>
             <h1><?php echo $correo ?></h1>
             <h1><?php echo $usuario ?></h1>
             <h1><?php echo $nombre ?></h1>
+            <h1><?php echo $fecha_nacimiento ?></h1>
         <?php } ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
