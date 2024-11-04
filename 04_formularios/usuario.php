@@ -151,12 +151,15 @@
                         $err_fecha_nacimiento = "No puedes ser menor de edad";
                     } elseif($anno_actual - $anno == 0) {
                         if($mes_actual - $mes < 0) {
-                            //  ES MENOR DE EDAD
+                            $err_fecha_nacimiento = "No puedes ser menor de edad";
                         } elseif($mes_actual - $mes == 0) {
-                            //  NO SABEMOS, TENEMOS QUE MIRAR EL DÍA
-                            
+                            if($dia_actual - $dia < 0) {
+                                $err_fecha_nacimiento = "No puedes ser menor de edad";
+                            } else {
+                                $fecha_nacimiento = $tmp_fecha_nacimiento;
+                            }
                         } elseif($mes_actual - $mes > 0) {
-                            //  ES MAYOR DE EDAD
+                            $fecha_nacimiento = $tmp_fecha_nacimiento;
                         } 
                     }
                 }
