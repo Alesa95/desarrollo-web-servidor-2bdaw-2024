@@ -43,7 +43,33 @@
             if(!preg_match($patron, $tmp_fecha_lanzamiento)) {
                 $err_fecha_lanzamiento = "Formato de fecha incorrecto";
             } else {
-                
+                list($anno_lanzamiento,$mes_lanzamiento,$dia_lanzamiento) =
+                    explode('-',$tmp_fecha_lanzamiento);
+                if($anno_lanzamiento < 1947) {
+                    $err_fecha_lanzamiento = "El año no puede ser anterior a 1947";
+                } else {
+                    $anno_actual = date("Y");
+                    $mes_actual = date("m");
+                    $dia_actual = date("d");
+
+                    if($anno_lanzamiento - $anno_actual < 5) {
+                        $fecha_lanzamiento = $tmp_fecha_lanzamiento;
+                    } elseif($anno_lanzamiento - $anno_actual > 5) {
+                        $err_fecha_lanzamiento = "La fecha debe ser anterior a dentro de 5 años";
+                    } elseif($anno_lanzamiento - $anno_actual == 5) {
+                        if($mes_lanzamiento - $mes_actual < 0) {
+                            $fecha_lanzamiento = $tmp_fecha_lanzamiento;
+                        } elseif($mes_lanzamiento - $mes_actual > 0) {
+                            $err_fecha_lanzamiento = "La fecha debe ser anterior a dentro de 5 años";
+                        } elseif($mes_lanzamiento - $mes_actual == 0) {
+                            if($dia_lanzamiento - $dia_actual <= 0) {
+                                $fecha_lanzamiento = $tmp_fecha_lanzamiento;
+                            } elseif($dia_lanzamiento - $dia_actual > 0) {
+                                $err_fecha_lanzamiento = "La fecha debe ser anterior a dentro de 5 años";
+                            }
+                        }
+                    }
+                }
             }
         }
     }
