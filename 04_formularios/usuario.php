@@ -16,17 +16,26 @@
     </style>
 </head>
 <body>
+    <?php
+    function depurar(string $entrada) : string {
+        $salida = htmlspecialchars($entrada);
+        $salida = trim($salida);
+        $salida = stripslashes($salida);
+        $salida = preg_replace('!\s+!', ' ', $salida);
+        return $salida;
+    }
+    ?>
     <div class="container">
-        <!-- Content here -->
-
         <?php
         if($_SERVER["REQUEST_METHOD"] == "POST") {
-            $tmp_usuario = $_POST["usuario"];
-            $tmp_nombre = $_POST["nombre"];
-            $tmp_apellidos = $_POST["apellidos"];
-            $tmp_dni = $_POST["dni"];
-            $tmp_correo = $_POST["correo"];
-            $tmp_fecha_nacimiento = $_POST["fecha_nacimiento"];
+            $tmp_usuario = depurar($_POST["usuario"]);
+            $tmp_nombre = depurar($_POST["nombre"]);
+            $tmp_apellidos = depurar($_POST["apellidos"]);
+            $tmp_dni = depurar($_POST["dni"]);
+            $tmp_correo = depurar($_POST["correo"]);
+            $tmp_fecha_nacimiento = depurar($_POST["fecha_nacimiento"]);
+
+            echo "<h1>" . strlen($tmp_nombre) . "</h1>";
 
             if($tmp_dni == '') {
                 $err_dni = "El DNI es obligatorio";
@@ -124,13 +133,13 @@
                     $err_nombre = "El nombre debe tener entre 2 y 40 caracteres";
                 } else {
                     //  letras, espacios en blanco y tildes
-                    $patron = "/^[a-zA-Z áéióúÁÉÍÓÚñÑüÜ]+$/";
-                    if(!preg_match($patron, $tmp_nombre)) {
+                    //$patron = "/^[a-zA-Z áéióúÁÉÍÓÚñÑüÜ]+$/";
+                    /*if(!preg_match($patron, $tmp_nombre)) {
                         $err_nombre = "El nombre solo puede contener letras y espacios
                             en blanco";
-                    } else {
-                        $nombre = $tmp_nombre;
-                    }
+                    } else {*/
+                        $nombre = ucwords(strtolower($tmp_nombre));
+                    //}
                 }
             }
 
@@ -221,11 +230,11 @@
         <?php
         if(isset($dni) && isset($correo) && isset($usuario) && isset($nombre)
                 && isset($fecha_nacimiento)) { ?>
-            <h1><?php echo $dni ?></h1>
-            <h1><?php echo $correo ?></h1>
-            <h1><?php echo $usuario ?></h1>
-            <h1><?php echo $nombre ?></h1>
-            <h1><?php echo $fecha_nacimiento ?></h1>
+            <p><?php echo $dni ?></p>
+            <p><?php echo $correo ?></p>
+            <p><?php echo $usuario ?></p>
+            <p><?php echo $nombre ?></p>
+            <p><?php echo $fecha_nacimiento ?></p>
         <?php } ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
