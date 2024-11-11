@@ -34,8 +34,17 @@
             $tmp_dni = depurar($_POST["dni"]);
             $tmp_correo = depurar($_POST["correo"]);
             $tmp_fecha_nacimiento = depurar($_POST["fecha_nacimiento"]);
+            $tmp_fecha_primer_dni = depurar($_POST["fecha_primer_dni"]);
 
-            echo "<h1>" . strlen($tmp_nombre) . "</h1>";
+            //echo "<h1>" . strlen($tmp_nombre) . "</h1>";
+
+            if($tmp_fecha_nacimiento > $tmp_fecha_primer_dni) {
+                echo "<h1>La fecha de nacimiento no puede ser posterior a la del DNI</h1>";
+            } elseif($tmp_fecha_nacimiento == $tmp_fecha_primer_dni) {
+                echo "<h1>Bueno, al palo, cuela porque son iguales</h1>";
+            } else {
+                echo "<h1>Ok, la fecha está bien</h1>";
+            }
 
             if($tmp_dni == '') {
                 $err_dni = "El DNI es obligatorio";
@@ -222,6 +231,11 @@
                 <label class="form-label">Fecha de nacimiento</label>
                 <input class="form-control" type="date" name="fecha_nacimiento">
                 <?php if(isset($err_fecha_nacimiento)) echo "<span class='error'>$err_fecha_nacimiento</span>" ?>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de primer DNI</label>
+                <input class="form-control" type="date" name="fecha_primer_dni">
+                <?php if(isset($err_fecha_primer_dni)) echo "<span class='error'>$err_fecha_primer_dni</span>" ?>
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Enviar">
