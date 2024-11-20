@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuevo anime</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <?php require 'conexion.php'; ?>
+    <?php
+        error_reporting( E_ALL );
+        ini_set("display_errors", 1 );    
+
+        require('conexion.php');
+    ?>
 </head>
 <body>
     <div class="container">
@@ -16,14 +21,23 @@
             $nombre_estudio = $_POST["nombre_estudio"];
             $anno_estreno = $_POST["anno_estreno"];
             $num_temporadas = $_POST["num_temporadas"];
+            /**
+             * $_FILES -> que es un array BIDIMENSIONAL
+             */
+            //var_dump($_FILES["imagen"]);
+            $nombre_imagen = $_FILES["imagen"]["name"];
+            $ubicacion_temporal = $_FILES["imagen"]["tmp_name"];
+            $ubicacion_final = "./imagenes/$nombre_imagen";
 
-            $sql = "INSERT INTO animes (titulo, nombre_estudio, anno_estreno, num_temporadas) 
+            move_uploaded_file($ubicacion_temporal, $ubicacion_final);
+
+            /*$sql = "INSERT INTO animes (titulo, nombre_estudio, anno_estreno, num_temporadas) 
                 VALUES ('$titulo', '$nombre_estudio', $anno_estreno, $num_temporadas)";
 
-            $_conexion -> query($sql);
+            $_conexion -> query($sql);*/
         }
         ?>
-        <form class="col-6" action="" method="post">
+        <form class="col-6" action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Título</label>
                 <input class="form-control" type="text" name="titulo">
@@ -39,6 +53,10 @@
             <div class="mb-3">
                 <label class="form-label">Número de temporadas</label>
                 <input class="form-control" type="text" name="num_temporadas">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Imagen</label>
+                <input class="form-control" type="file" name="imagen">
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Insertar">
