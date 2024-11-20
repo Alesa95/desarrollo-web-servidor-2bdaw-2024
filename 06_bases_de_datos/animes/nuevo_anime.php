@@ -31,11 +31,21 @@
 
             move_uploaded_file($ubicacion_temporal, $ubicacion_final);
 
-            /*$sql = "INSERT INTO animes (titulo, nombre_estudio, anno_estreno, num_temporadas) 
-                VALUES ('$titulo', '$nombre_estudio', $anno_estreno, $num_temporadas)";
+            $sql = "INSERT INTO animes (titulo, nombre_estudio, anno_estreno, num_temporadas, imagen) 
+                VALUES ('$titulo', '$nombre_estudio', $anno_estreno, $num_temporadas, '$ubicacion_final')";
 
-            $_conexion -> query($sql);*/
+            $_conexion -> query($sql);
         }
+
+        $sql = "SELECT * FROM estudios ORDER BY nombre_estudio";
+        $resultado = $_conexion -> query($sql);
+        $estudios = [];
+
+        while($fila = $resultado -> fetch_assoc()) {
+            array_push($estudios, $fila["nombre_estudio"]);
+        }
+        //print_r($estudios);
+ 
         ?>
         <form class="col-6" action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
@@ -44,7 +54,15 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Nombre estudio</label>
-                <input class="form-control" type="text" name="nombre_estudio">
+                <select class="form-select" name="nombre_estudio">
+                    <option value="" selected disabled hidden>--- Elige el estudio ---</option>
+                    <?php
+                    foreach($estudios as $estudio) { ?>
+                        <option value="<?php echo $estudio ?>">
+                            <?php echo $estudio ?>
+                        </option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Año estreno</label>
@@ -60,6 +78,7 @@
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Insertar">
+                <a class="btn btn-secondary" href="index.php">Volver</a>
             </div>
         </form>
     </div>
