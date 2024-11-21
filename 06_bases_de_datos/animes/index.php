@@ -43,6 +43,7 @@
                     <th>Número de temporadas</th>
                     <th>Imagen</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +57,10 @@
                         ?>
                         <td>
                             <img width="100" height="200" src="<?php echo $fila["imagen"] ?>">
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" 
+                               href="ver_anime.php?id_anime=<?php echo $fila["id_anime"] ?>">Editar</a>
                         </td>
                         <td>
                             <form action="" method="post">
