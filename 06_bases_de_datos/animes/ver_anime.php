@@ -16,7 +16,7 @@
     <div class="container">
         <h1>Editar anime</h1>
         <?php
-        echo "<h1>" . $_GET["id_anime"] . "</h1>";
+        //echo "<h1>" . $_GET["id_anime"] . "</h1>";
 
         $id_anime = $_GET["id_anime"];
         $sql = "SELECT * FROM animes WHERE id_anime = $id_anime";
@@ -30,7 +30,7 @@
             $imagen = $fila["imagen"];
         }
 
-        echo "<h1>$titulo</h1>";
+        //echo "<h1>$titulo</h1>";
 
         $sql = "SELECT * FROM estudios ORDER BY nombre_estudio";
         $resultado = $_conexion -> query($sql);
@@ -38,6 +38,23 @@
 
         while($fila = $resultado -> fetch_assoc()) {
             array_push($estudios, $fila["nombre_estudio"]);
+        }
+
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id_anime = $_POST["id_anime"];
+            $titulo = $_POST["titulo"];
+            $nombre_estudio = $_POST["nombre_estudio"];
+            $anno_estreno = $_POST["anno_estreno"];
+            $num_temporadas = $_POST["num_temporadas"];
+
+            $sql = "UPDATE animes SET
+                titulo = '$titulo',
+                nombre_estudio = '$nombre_estudio',
+                anno_estreno = $anno_estreno,
+                num_temporadas = $num_temporadas
+                WHERE id_anime = $id_anime
+            ";
+            $_conexion -> query($sql);
         }
         ?>
         <form class="col-6" action="" method="post" enctype="multipart/form-data">
@@ -70,7 +87,8 @@
                 <input class="form-control" type="file" name="imagen">
             </div>
             <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="Insertar">
+                <input type="hidden" name="id_anime" value="<?php echo $id_anime ?>">
+                <input class="btn btn-primary" type="submit" value="Confirmar">
                 <a class="btn btn-secondary" href="index.php">Volver</a>
             </div>
         </form>
