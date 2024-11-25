@@ -10,10 +10,19 @@
         ini_set("display_errors", 1 );    
 
         require('conexion.php');
+
+        session_start();
+        if(isset($_SESSION["usuario"])) {
+            echo "<h2>Bienvenid@ " . $_SESSION["usuario"] . "</h2>";
+        }else{
+            header("location: usuario/iniciar_sesion.php");
+            exit;
+        }
     ?>
 </head>
 <body>
     <div class="container">
+        <a class="btn btn-warning" href="usuario/cerrar_sesion.php">Cerrar sesión</a>
         <h1>Tabla de animes</h1>
         <?php
             if($_SERVER["REQUEST_METHOD"] == "POST") {
