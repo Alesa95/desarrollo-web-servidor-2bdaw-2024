@@ -39,6 +39,8 @@
                 session_start();
                 $_SESSION["usuario"] = $usuario;
                 //$_COOKIE["loquesea"] = "loquesea";
+                header("location: ../index.php");
+                exit;
             } else {
                 echo "<h2>La contraseña es incorrecta</h2>";
             }
@@ -59,9 +61,12 @@
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Iniciar sesión">
-                <a class="btn btn-secondary" href="../index.php">Volver</a>
             </div>
         </form>
+        <div class="mb-3">
+            <h3>O, si aún no tienes cuenta, regístrate</h3>
+            <a class="btn btn-secondary" href="registro.php">Registrarse</a>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

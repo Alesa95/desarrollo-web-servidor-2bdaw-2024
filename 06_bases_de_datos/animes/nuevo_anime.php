@@ -10,6 +10,14 @@
         ini_set("display_errors", 1 );    
 
         require('conexion.php');
+
+        session_start();
+        if(isset($_SESSION["usuario"])) {
+            echo "<h2>Bienvenid@ " . $_SESSION["usuario"] . "</h2>";
+        }else{
+            header("location: usuario/iniciar_sesion.php");
+            exit;
+        }
     ?>
 </head>
 <body>
