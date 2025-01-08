@@ -38,10 +38,20 @@
             $imagen = $fila["imagen"];
         }
 
-        //echo "<h1>$titulo</h1>";
-
+        /*
         $sql = "SELECT * FROM estudios ORDER BY nombre_estudio";
         $resultado = $_conexion -> query($sql);
+        */
+
+        # 1. Prepare
+        $sql = $_conexion -> prepare("SELECT * FROM estudios ORDER BY ?");
+        # 2. Bind
+        $sql -> bind_param("s",$nombre_estudio);
+        # 3. Execute
+        $sql -> execute();
+        # 4. Retrieve
+        $resultado = $sql -> get_result();
+
         $estudios = [];
 
         while($fila = $resultado -> fetch_assoc()) {
