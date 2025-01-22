@@ -19,7 +19,25 @@
     curl_close($curl);
 
     $estudios = json_decode($respuesta, true);
-    print_r($estudios);
     ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudio</th>
+                <th>Ciudad</th>
+                <th>Año de fundación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($estudios as $estudio) { ?>
+                <tr>
+                    <td><?php echo $estudio["nombre_estudio"] ?></td>
+                    <td><?php echo $estudio["ciudad"] ?></td>
+                    <td><?php echo $estudio["anno_fundacion"] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
