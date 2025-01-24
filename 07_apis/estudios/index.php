@@ -10,8 +10,20 @@
     ?>
 </head>
 <body>
+    <form action="" method="get">
+        <label>Ciudad: </label>
+        <input type="text" name="ciudad">
+        <input type="submit" value="Buscar">
+    </form>
+
     <?php
     $apiUrl = "http://localhost/Ejercicios/07_apis/estudios/api_estudios.php";
+
+    if(!empty($_GET["ciudad"])) {
+        $ciudad = $_GET["ciudad"];
+        $apiUrl = "$apiUrl?ciudad=$ciudad";
+    }
+
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $apiUrl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
