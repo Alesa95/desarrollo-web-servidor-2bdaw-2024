@@ -46,5 +46,20 @@
     </ul>
 
     <iframe src="<?php echo $anime["trailer"]["embed_url"] ?>"></iframe>
+
+    <h3>Animes relacionados</h3>
+    <ul>
+        <?php
+        $relacionados = $anime["relations"];
+        foreach($relacionados as $relacionado) {
+            $entradas = $relacionado["entry"];
+            foreach($entradas as $entrada) {
+                if($entrada["type"] == "anime") {
+                    echo "<li>" . $entrada["name"] . "</li>";
+                }
+            }
+        }
+        ?>
+    </ul>
 </body>
 </html>
