@@ -12,7 +12,7 @@
 <body>
     <?php
         $id = $_GET["id"];
-        $apiUrl = "https://api.jikan.moe/v4/anime/$id";
+        $apiUrl = "https://api.jikan.moe/v4/anime/$id/full";
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
@@ -23,6 +23,28 @@
         $datos = json_decode($respuesta, true);
         $anime = $datos["data"];
     ?>
-    <h1><?php echo $anime["title"] ?></h1>
+    <h1>
+        <?php echo $anime["title"] ?>
+    </h1>
+    <h2>
+        <?php echo $anime["score"] ?>
+    </h2>
+    <img width="200px" src="<?php echo $anime["images"]["jpg"]["image_url"] ?>">
+
+    <h3>Sinopsis</h3>
+    <p>
+        <?php echo $anime["synopsis"] ?>
+    </p>
+
+    <h3>Géneros</h3>
+    <ul>
+        <?php
+        $generos = $anime["genres"];
+        foreach($generos as $genero) { ?>
+            <li><?php echo $genero["name"] ?></li>
+        <?php } ?>
+    </ul>
+
+    <iframe src="<?php echo $anime["trailer"]["embed_url"] ?>"></iframe>
 </body>
 </html>
