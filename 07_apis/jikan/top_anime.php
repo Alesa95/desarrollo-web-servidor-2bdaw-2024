@@ -19,11 +19,29 @@
         $animes = $datos["data"];
         //print_r($animes);
     ?>
-    <ol>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Posición</th>
+                <th>Título</th>
+                <th>Nota</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php
-        foreach($animes as $anime) { ?>
-            <li><?php echo $anime["title"] ?></li>
-        <?php } ?>
-    </ol>
+            foreach($animes as $anime) { ?>
+                <tr>
+                    <td><?php echo $anime["rank"] ?></td>
+                    <td><?php echo $anime["title"] ?></td>
+                    <td><?php echo $anime["score"] ?></td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
