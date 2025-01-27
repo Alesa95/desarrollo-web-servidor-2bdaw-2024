@@ -37,7 +37,7 @@
                     <td><?php echo $anime["title"] ?></td>
                     <td><?php echo $anime["score"] ?></td>
                     <td>
-                        
+                        <img width="100px" src="<?php echo $anime["images"]["jpg"]["image_url"] ?>">
                     </td>
                 </tr>
             <?php } ?>
