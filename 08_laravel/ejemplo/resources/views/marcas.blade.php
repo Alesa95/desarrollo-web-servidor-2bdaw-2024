@@ -8,5 +8,23 @@
 </head>
 <body>
     <h1>Lista de marcas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Año de fundación</th>
+                <th>País</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($marcas as $marca)
+                <tr>
+                    <td>{{ $marca -> marca }}</td>
+                    <td>{{ $marca -> ano_fundacion }}</td>
+                    <td>{{ $marca -> pais }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
